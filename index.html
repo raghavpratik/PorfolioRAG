@@ -30,13 +30,13 @@
         }
 
         html.dark {
-            --bg-color: #0d1117;
+            --bg-color: #000000; /* Pitch Black */
             --text-color: #c9d1d9;
             --primary-color: #f472b6; /* Lighter Vibrant Pink */
             --secondary-color: #c084fc; /* Lighter Vibrant Violet */
-            --card-bg: #161b22;
+            --card-bg: #111111; /* Slightly off-black */
             --card-border: #30363d;
-            --header-bg: rgba(13, 17, 23, 0.8);
+            --header-bg: rgba(0, 0, 0, 0.7);
             --text-muted: #8b949e;
         }
 
@@ -104,7 +104,6 @@
         .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            border-color: var(--secondary-color);
         }
 
         .name-hover-glow { transition: text-shadow 0.3s ease-in-out; }
@@ -115,7 +114,7 @@
             overflow: hidden;
             border-right: .15em solid var(--primary-color);
             white-space: nowrap;
-            animation: typing 2s steps(40, end) forwards, blink-caret .75s step-end infinite;
+            animation: typing 2s steps(40, end) forwards;
         }
         @keyframes typing { from { width: 0 } to { width: 100% } }
         
@@ -179,6 +178,25 @@
             transform: scale(1.2);
             border-color: var(--primary-color);
             box-shadow: 0 0 15px var(--primary-color);
+        }
+
+        /* Enhanced "My Work" cards */
+        .project-card::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            z-index: -1;
+            margin: -2px;
+            border-radius: inherit;
+            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .project-card:hover {
+             border-color: transparent;
+        }
+        .project-card:hover::after {
+            opacity: 1;
         }
     </style>
 </head>
@@ -406,7 +424,7 @@
                     <p class="mt-3 text-lg max-w-3xl mx-auto" style="color: var(--text-muted);">A selection of projects demonstrating my expertise in automation, analytics, and optimization.</p>
                 </div>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <div class="card p-6">
+                    <div class="card project-card p-6">
                         <h3 class="text-2xl font-bold mb-3">Power Deviation Reporting Automation</h3>
                         <div class="flex flex-wrap gap-2 mb-4">
                             <span class="bg-blue-500/10 text-blue-400 text-xs font-semibold px-2.5 py-1 rounded-full">OSI PI</span>
@@ -420,7 +438,7 @@
                             <li>Championed cross-functional collaboration and stakeholder engagement.</li>
                         </ul>
                     </div>
-                    <div class="card p-6">
+                    <div class="card project-card p-6">
                         <h3 class="text-2xl font-bold mb-3">Digital Transformation with AKXA Tech</h3>
                          <div class="flex flex-wrap gap-2 mb-4">
                             <span class="bg-purple-500/10 text-purple-400 text-xs font-semibold px-2.5 py-1 rounded-full">PSI Software</span>
@@ -433,7 +451,7 @@
                              <li>Enhanced presentation and collaboration skills through technical discussions.</li>
                         </ul>
                     </div>
-                    <div class="card p-6">
+                    <div class="card project-card p-6">
                         <h3 class="text-2xl font-bold mb-3">AI-Driven Kiln Optimization</h3>
                          <div class="flex flex-wrap gap-2 mb-4">
                             <span class="bg-pink-500/10 text-pink-400 text-xs font-semibold px-2.5 py-1 rounded-full">AI/ML</span>
@@ -446,7 +464,7 @@
                             <li>Strengthened external collaboration and communication.</li>
                         </ul>
                     </div>
-                    <div class="card p-6">
+                    <div class="card project-card p-6">
                         <h3 class="text-2xl font-bold mb-3">Strategic Planning with IBM Cognos</h3>
                         <div class="flex flex-wrap gap-2 mb-4">
                             <span class="bg-indigo-500/10 text-indigo-400 text-xs font-semibold px-2.5 py-1 rounded-full">IBM Cognos</span>
@@ -491,13 +509,13 @@
     <script>
         particlesJS('particles-js', {
           "particles": {
-            "number": { "value": 50, "density": { "enable": true, "value_area": 800 } },
+            "number": { "value": 40, "density": { "enable": true, "value_area": 800 } },
             "color": { "value": "#ffffff" },
             "shape": { "type": "circle" },
-            "opacity": { "value": 0.4, "random": true },
+            "opacity": { "value": 0.7, "random": true },
             "size": { "value": 6, "random": true, "anim": { "enable": true, "speed": 1, "size_min": 0.1, "sync": false } },
             "line_linked": { "enable": false },
-            "move": { "enable": true, "speed": 1.5, "direction": "top", "random": true, "straight": false, "out_mode": "out", "bounce": false }
+            "move": { "enable": true, "speed": 0.5, "direction": "top", "random": true, "straight": false, "out_mode": "out", "bounce": false }
           },
           "interactivity": {
             "detect_on": "canvas",
@@ -511,14 +529,16 @@
         const themeToggleMobile = document.getElementById('theme-toggle-mobile');
         const themeIcon = document.getElementById('theme-icon');
         const themeIconMobile = document.getElementById('theme-icon-mobile');
-        const userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && userPrefersDark)) {
+        
+        // Set dark mode as default
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+            themeIcon.className = 'fas fa-moon';
+            themeIconMobile.className = 'fas fa-moon';
+        } else {
             document.documentElement.classList.add('dark');
             themeIcon.className = 'fas fa-sun';
             themeIconMobile.className = 'fas fa-sun';
-        } else {
-            themeIcon.className = 'fas fa-moon';
-            themeIconMobile.className = 'fas fa-moon';
         }
 
         const toggleTheme = () => {
