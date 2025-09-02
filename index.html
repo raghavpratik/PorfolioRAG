@@ -106,6 +106,44 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
             border-color: var(--secondary-color);
         }
+
+        /* Name hover glow effect */
+        .name-hover-glow {
+            transition: text-shadow 0.3s ease-in-out;
+        }
+        .name-hover-glow:hover {
+            text-shadow: 0 0 8px rgba(249, 168, 212, 0.7), 0 0 16px rgba(167, 139, 250, 0.7);
+        }
+
+        /* Typing animation */
+        .typing-effect {
+            width: max-content;
+            overflow: hidden;
+            border-right: .15em solid var(--primary-color);
+            white-space: nowrap;
+            animation: typing 2s steps(40, end) forwards, blink-caret .75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--primary-color); }
+        }
+
+        /* Enhanced Career Journey */
+        .timeline-item {
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            opacity: 0;
+            transform: translateX(20px);
+        }
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
     </style>
 </head>
 <body class="w-full">
@@ -119,7 +157,7 @@
                 <a href="#about" class="nav-link hover:text-white">About</a>
                 <a href="#skills" class="nav-link hover:text-white">Skills</a>
                 <a href="#experience" class="nav-link hover:text-white">Experience</a>
-                <a href="#projects" class="nav-link hover:text-white">Projects</a>
+                <a href="#projects" class="nav-link hover:text-white">My Work</a>
                 <a href="#contact" class="nav-link hover:text-white">Contact</a>
                  <button id="theme-toggle" class="text-xl w-10 h-10 rounded-lg flex items-center justify-center hover:bg-gray-700">
                     <i id="theme-icon" class="fas fa-moon"></i>
@@ -139,7 +177,7 @@
              <a href="#about" class="block py-3 px-6 text-sm hover:bg-gray-700">About</a>
             <a href="#skills" class="block py-3 px-6 text-sm hover:bg-gray-700">Skills</a>
             <a href="#experience" class="block py-3 px-6 text-sm hover:bg-gray-700">Experience</a>
-            <a href="#projects" class="block py-3 px-6 text-sm hover:bg-gray-700">Projects</a>
+            <a href="#projects" class="block py-3 px-6 text-sm hover:bg-gray-700">My Work</a>
             <a href="#contact" class="block py-3 px-6 text-sm hover:bg-gray-700">Contact</a>
         </div>
     </header>
@@ -148,12 +186,14 @@
         <!-- Hero Section -->
         <section id="home" class="py-40 md:py-56 flex items-center justify-center text-center">
             <div class="container mx-auto px-6">
-                <h1 class="text-5xl md:text-7xl font-bold leading-tight bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-violet-400">
+                <h1 class="name-hover-glow text-5xl md:text-7xl font-bold leading-tight bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-violet-400">
                     Raginee Patel
                 </h1>
-                <p class="text-2xl md:text-3xl mt-4 font-semibold" style="color: var(--primary-color);">
-                    Digital Transformation & Process Intelligence
-                </p>
+                <div class="inline-block mx-auto">
+                    <p class="typing-effect text-2xl md:text-3xl mt-4 font-semibold" style="color: var(--primary-color);">
+                        Digital Transformation & Process Intelligence
+                    </p>
+                </div>
                 <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
                     <a href="#projects" class="glowing-btn bg-gradient-to-r from-pink-600 to-violet-600 text-white font-bold py-3 px-8 rounded-lg w-full sm:w-auto">
                         View My Work
@@ -175,7 +215,8 @@
                 <div class="flex flex-col md:flex-row items-center gap-12">
                     <div class="md:w-1/3 flex justify-center">
                         <div class="w-64 h-64 rounded-full p-1.5 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 relative">
-                           <img src="https://placehold.co/256x256/0d1117/c9d1d9?text=RP" alt="Raginee Patel" class="w-full h-full rounded-full object-cover">
+                           <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAJEA8gDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1VZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uLj5OXm5+jp6vLz9PX29/j5+v/aAAwDAQACEQMRAD8A+z6KKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKK-
+" alt="Raginee Patel" class="w-full h-full rounded-full object-cover object-center">
                            <div class="absolute inset-0 rounded-full border-2 border-pink-500 animate-pulse"></div>
                         </div>
                     </div>
@@ -241,19 +282,19 @@
                 </div>
                 <div class="relative max-w-3xl mx-auto">
                     <div class="border-l-2 absolute h-full top-0 left-4" style="border-color: var(--secondary-color);"></div>
-                    <div class="mb-12 pl-12 relative card p-6">
+                    <div class="timeline-item mb-12 pl-12 relative card p-6">
                         <div class="absolute -left-0 top-6 w-8 h-8 rounded-full flex items-center justify-center bg-gray-800 border-2" style="border-color: var(--secondary-color);"><i class="fas fa-star text-yellow-400"></i></div>
                         <p class="text-sm font-mono" style="color: var(--text-muted);">Aug 2023 - Present</p>
                         <h3 class="text-2xl font-bold mt-1">Assistant Officer</h3>
                         <p class="text-lg text-violet-400">UltraTech Cement Ltd., Aditya Birla Group</p>
                     </div>
-                    <div class="mb-12 pl-12 relative card p-6">
+                    <div class="timeline-item mb-12 pl-12 relative card p-6">
                         <div class="absolute -left-0 top-6 w-8 h-8 rounded-full flex items-center justify-center bg-gray-800 border-2" style="border-color: var(--secondary-color);"><i class="fas fa-arrow-up text-green-400"></i></div>
                         <p class="text-sm font-mono" style="color: var(--text-muted);">Aug 2020 - Aug 2023</p>
                         <h3 class="text-2xl font-bold mt-1">Junior Officer</h3>
                         <p class="text-lg text-violet-400">UltraTech Cement Ltd., Aditya Birla Group</p>
                     </div>
-                    <div class="pl-12 relative card p-6">
+                    <div class="timeline-item pl-12 relative card p-6">
                          <div class="absolute -left-0 top-6 w-8 h-8 rounded-full flex items-center justify-center bg-gray-800 border-2" style="border-color: var(--secondary-color);"><i class="fas fa-seedling text-cyan-400"></i></div>
                         <p class="text-sm font-mono" style="color: var(--text-muted);">Aug 2019 - Aug 2020</p>
                         <h3 class="text-2xl font-bold mt-1">Staff Trainee</h3>
@@ -416,8 +457,25 @@
         mobileMenuButton.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
         });
+
+        // --- Scroll Animations for Career Journey ---
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.5
+        });
+
+        timelineItems.forEach(item => {
+            observer.observe(item);
+        });
     </script>
 </body>
 </html>
+<!-- git add . && git commit -m "faster animation" && git push
+ -->
 
-<!-- git add . && git commit -m "enhanced" && git push -->
